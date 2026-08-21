@@ -12,58 +12,49 @@ class StudentController extends Controller
     /**
      * Display all students.
      */
-    public function index(): View
-    {
-        $students = Student::latest()->get();
-
-        return view('home', compact('students'));
+    public function index():view{
+        $students= Student::latest()->get();
+        return view('home',compact('students'));
     }
-
-    /**
-     * Store a new student.
-     */
-    public function store(Request $request): RedirectResponse
-    {
-        $validatedData = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'city' => ['required', 'string', 'max:255'],
-            'marks' => ['required', 'integer', 'min:0', 'max:100'],
+    //  *Create & Store a new student.
+    //  */
+    public function store(Request $request):RedirectResponse{
+        $validatedData= $request->validate([
+            'name'=>['required','string','max:255'],
+            'city'=>['required','string','max:255'],
+            'marks'=>['required','integer','min:0','max:255']
         ]);
-
         Student::create($validatedData);
 
         return redirect()
-            ->route('students.index')
-            ->with('success', 'Student added successfully.');
+        ->route('students.index')
+        ->with('Success','Student Added Successfully');
     }
-
+ 
     /**
      * Open the edit form.
      */
-    public function edit(Student $student): View
-    {
-        return view('editform', compact('student'));
+    public function edit(Student $student): view{
+    return view('editform',compact('student'));
     }
-
+   
     /**
      * Update a student.
      */
     public function update(
         Request $request,
         Student $student
-    ): RedirectResponse {
-        $validatedData = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'city' => ['required', 'string', 'max:255'],
-            'marks' => ['required', 'integer', 'min:0', 'max:100'],
-        ]);
-
-        $student->update($validatedData);
-
-        return redirect()
+        ): RedirectResponse{
+            $validatedData = $request->validate([
+                'name'=>['required','string','max:255'],
+                'city'=>['required','string','max:255'],
+                'marks'=>['required','integer','min:0','max:255']
+            ]);
+            $student->update($validatedData);
+            return redirect()
             ->route('students.index')
-            ->with('success', 'Student updated successfully.');
-    }
+            ->with('Success','Student Updated Successfully');
+        }
 
     /**
      * Delete a student.
@@ -73,7 +64,8 @@ class StudentController extends Controller
         $student->delete();
 
         return redirect()
-            ->route('students.index')
-            ->with('success', 'Student deleted successfully.');
+        ->route('students.index')
+        ->with('Success','Student Deleted Successfully');
+    
     }
 }

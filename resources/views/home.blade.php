@@ -23,9 +23,9 @@
     <h1 class="mb-4">Student Management</h1>
 
     {{-- Success message --}}
-    @if (session('success'))
+    @if (session('Success'))
         <div class="alert alert-success">
-            {{ session('success') }}
+            {{ session('Success') }}
         </div>
     @endif
 
@@ -103,16 +103,17 @@
                         </label>
 
                         <input
-                            type="number"
-                            id="marks"
+                            type="integer"
+                            
                             name="marks"
                             class="form-control"
                             value="{{ old('marks') }}"
-                            min="0"
-                            max="100"
-                            required
+                           
                         >
                     </div>
+                    <!-- @error('marks')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror -->
 
                 </div>
 
